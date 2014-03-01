@@ -3,6 +3,10 @@
 #ifndef _7ZIP_ARCHIVE_H
 #define _7ZIP_ARCHIVE_H
 
+#ifndef NOMINMAX
+	#define NOMINMAX
+#endif
+
 extern "C" {
 #include "lib/7z/7zFile.h"
 #include "lib/7z/7z.h"

@@ -143,6 +143,7 @@ else  (UNIX AND NOT MINGW)
 			${MINGWLIBS}/ogg_vorbis
 			${MINGWLIBS}/glew
 			${MINGWLIBS}/freetype
+			${MINGWLIBS}/fontconfig
 			${CMAKE_FIND_ROOT_PATH})
 		set(ENV{OPENALDIR} ${MINGWLIBS}/OpenAL)
 		include_directories(${MINGWLIBS}/zlib/include)

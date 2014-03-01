@@ -68,7 +68,7 @@ class CEventClient
 	public:
 		friend class CEventHandler;
 
-		typedef void (*eventFuncPtr)();
+		typedef void (CEventClient::*eventFuncPtr)();
 
 		std::map<std::string, eventFuncPtr> linkedEvents;
 		std::map<std::string, std::string> linkedEventsTypeInfo;

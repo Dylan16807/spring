@@ -103,12 +103,21 @@ Macro    (CreateInstallTarget targetName var_list_depends var_list_instDirs)
 		If    (NOT EXISTS "${CMAKE_SOURCE_DIR}/${instDir}/CMakeLists.txt")
 			Message(FATAL_ERROR "Not a valid dir for installer target: ${instDir}, \"${CMAKE_SOURCE_DIR}/${instDir}/CMakeLists.txt\" does not exist.")
 		EndIf (NOT EXISTS "${CMAKE_SOURCE_DIR}/${instDir}/CMakeLists.txt")
-		Set(installCmds ${installCmds} 
-			COMMAND "${CMAKE_COMMAND}"
-				"-P" "${CMAKE_BINARY_DIR}/${instDir}/cmake_install.cmake"
-				# NOTE: The following does not work in CMake 2.6.4
-				#"-DCMAKE_INSTALL_COMPONENT=${targetName}"
-			)
+		If    (MSVC)
+			Set(installCmds ${installCmds}
+				COMMAND "${CMAKE_COMMAND}"
+					"-DBUILD_TYPE=$(Configuration)"
+					"-P" "${CMAKE_BINARY_DIR}/${instDir}/cmake_install.cmake"
+				)
+		Else  (MSVC)
+			Set(installCmds ${installCmds}
+				COMMAND "${CMAKE_COMMAND}"
+					"-DBUILD_TYPE=${CMAKE_BUILD_TYPE}"
+					"-P" "${CMAKE_BINARY_DIR}/${instDir}/cmake_install.cmake"
+					# NOTE: The following does not work in CMake 2.6.4
+					#"-DCMAKE_INSTALL_COMPONENT=${targetName}"
+				)
+		EndIf (MSVC)
 	EndForEach (instDir)
 
 	# Make sure we do have commands at all

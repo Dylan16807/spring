@@ -12,6 +12,13 @@ IF    (WIN32)
 	# We have them available anyway (mingwlibs).
 	FIND_PACKAGE(SDL2 REQUIRED)
 	INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
+	IF    (MSVC)
+		# Use the direct copy of GL, to avoid
+		# hassles with windows.h
+		INCLUDE_DIRECTORIES(BEFORE ${CMAKE_SOURCE_DIR}/include)
+		# Fix dll build issues
+		add_definitions(-DBUILD_GL32 -DBUILD_GLU32)
+	ENDIF (MSVC)
 ELSE  (WIN32)
 	# Use a direct copy of the GL and SDL headers,
 	# as these may not be available on headless systems.

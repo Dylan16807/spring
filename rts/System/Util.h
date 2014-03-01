@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+#include <boost/cstdint.hpp>
 #include <boost/utility.hpp>
 
 #include "System/maindefines.h"

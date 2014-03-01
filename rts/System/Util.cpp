@@ -3,6 +3,7 @@
 #include "System/Util.h"
 #if defined(_MSC_VER) && (_MSC_VER >= 1310)
 #include <intrin.h>
+#pragma intrinsic(_BitScanReverse)
 #endif
 #include <cstring>
 
@@ -110,8 +111,14 @@ bool StringEndsWith(const std::string& str, const char* postfix)
 
 static inline unsigned count_leading_ones(uint8_t x)
 {
-	uint32_t i = ~x;
-	return __builtin_clz((i<<24) | 0x00FFFFFF);
+	uint32_t i = (unsigned(~x) << 24) | 0x00FFFFFF;
+#ifdef _MSC_VER
+	unsigned long count;
+	_BitScanReverse(&count, i);
+	return 31 - count;
+#else
+	return __builtin_clz(i);
+#endif
 }
 
 

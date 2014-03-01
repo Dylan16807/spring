@@ -21,17 +21,24 @@ IF (WIN32)
 	LIST(APPEND unitsync_libs ${WINMM_LIBRARY})
 ENDIF (WIN32)
 
-IF    (MINGW)
+IF    (WIN32)
 	# We still need these header files,
 	# even if we are not going to link with SDL.
 	# We have them available anyway (mingwlibs).
 	FIND_PACKAGE(SDL2 REQUIRED)
 	INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIR})
-ELSE  (MINGW)
+	IF    (MSVC)
+		# Use the direct copy of GL, to avoid
+		# hassles with windows.h
+		INCLUDE_DIRECTORIES(BEFORE ${CMAKE_SOURCE_DIR}/include)
+		# Fix dll build issues
+		add_definitions(-DBUILD_GL32 -DBUILD_GLU32)
+	ENDIF (MSVC)
+ELSE  (WIN32)
 	# Use a direct copy of the GL and SDL headers,
 	# as these may not be available on headless systems.
 	INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include/SDL2)
-ENDIF (MINGW)
+ENDIF (WIN32)
 
 
 ADD_DEFINITIONS(-DUNITSYNC)
@@ -44,7 +51,7 @@ REMOVE_DEFINITIONS(-DTHREADPOOL)
 
 set(ENGINE_SRC_ROOT "../../rts")
 
-INCLUDE_DIRECTORIES(${DEVIL_INCLUDE_DIR})
+INCLUDE_DIRECTORIES(${IL_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${SPRING_MINIZIP_INCLUDE_DIR})
 INCLUDE_DIRECTORIES(${ENGINE_SRC_ROOT}/lib/lua/include)
 INCLUDE_DIRECTORIES(${ENGINE_SRC_ROOT}/lib/7zip)

@@ -5,6 +5,10 @@
 
 #ifdef WIN32
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+
 #include <boost/thread/thread.hpp>
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>

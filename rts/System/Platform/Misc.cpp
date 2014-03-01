@@ -7,6 +7,9 @@
 #include <dlfcn.h> // for dladdr(), dlopen()
 
 #elif WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #include <io.h>
 #include <direct.h>
 #include <process.h>

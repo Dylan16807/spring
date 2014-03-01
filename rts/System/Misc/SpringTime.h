@@ -42,9 +42,9 @@ namespace spring_clock {
 	template<typename T> static T ToNanoSecs (const boost::int64_t ns) { return (ns       ); }
 
 	// specializations
-	template<> boost::int64_t ToSecs     <boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e9)); }
-	template<> boost::int64_t ToMilliSecs<boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e6)); }
-	template<> boost::int64_t ToMicroSecs<boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e3)); }
+	template<> static boost::int64_t ToSecs     <boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e9)); }
+	template<> static boost::int64_t ToMilliSecs<boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e6)); }
+	template<> static boost::int64_t ToMicroSecs<boost::int64_t>(const boost::int64_t ns) { return (ns / boost::int64_t(1e3)); }
 
 	template<typename T> static boost::int64_t FromSecs     (const T  s) { return ( s * boost::int64_t(1e9)); }
 	template<typename T> static boost::int64_t FromMilliSecs(const T ms) { return (ms * boost::int64_t(1e6)); }

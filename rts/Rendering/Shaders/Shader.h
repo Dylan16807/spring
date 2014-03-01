@@ -9,6 +9,10 @@
 #include <unordered_map>
 #include "ShaderStates.h"
 
+#ifdef _MSC_VER
+#define constexpr static
+#endif
+
 
 
 constexpr size_t hashString(const char* str, size_t hash = 5381)
